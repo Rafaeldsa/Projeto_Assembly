@@ -1,24 +1,30 @@
 .data
 	inicial:		.asciz "\n\n== Ultimate Calculadora ==\n\n Operando 1 > "
-	operandoATxt:		.asciz "\n\n Operando 2 > "
+	operandoATxt:		asciz "\n\n Operando 2 > "
 	operadorTxt:		.asciz "\n (+) Adicao\n (-) Subtracao\n (*) Multiplicacao\n (/) Divisao\n Operador > "	
+
+	creditos:		.ascii "Calculadora criada para a disciplina de Organizacao e Arquitetura de Computadores (OAC).\nGrupo: Edson Weslley        (edsonweslley)\n       Euclides Ramos       (EuclidesRamos)\n       Gabriel Guimaraes    (gabrieeeuu)\n       João Pedro de Barros (joaobb)\n       Rafael Dantas        (Rafaeldsa)\n"
 
 	adicaoMensagem:		.asciz "\nResultado da adicao = "
 	subtracaoMensagem:	.asciz "\nResultado da subtracao = "
 	multiplicacaoMensagem:	.asciz "\nResultado da multiplicacao = "
 	divisaoMensagem:	.asciz "\nResultado da divisao = "
-	
+
 .text 
+
+	li a7, 4			# Define o servico a ser realizado como print de string
+	la a0, creditos			# Define que os creditos do programa serao imressos na tela
+	ecall				# Mostra a os creditos da criacao do programa
 
 _start:
 	li a7, 4			# Define o servico a ser realizado como print de string
 	la a0, inicial			# Define que a mensagem inicial sera imressa na tela
-	ecall				# Mostra a mensagem de introducao da calculador
+	ecall				# Mostra a mensagem de introducao da calculadora
 	
 	#Leitura dos operandos begin ===
-    li a7, 5 				# Define o servico a ser realizado como leitura de inteiros    
-    ecall 				# Realiza a leitura do primeiro operando e o coloca em a0
-    mv t1,a0				# Move o inteiro recebido para t0
+    	li a7, 5 			# Define o servico a ser realizado como leitura de inteiros    
+   	 ecall 				# Realiza a leitura do primeiro operando e o coloca em a0
+    	mv t1,a0			# Move o inteiro recebido para t0
     
     
     li a7, 4				# Define o servico a ser realizado como print de string
@@ -54,22 +60,22 @@ _start:
 
 adicao: 
 	add s2,t1,t2			# Realiza a operacao de soma
-	la a0, adicaoMensagem		# Define a mensagem a ser impressa como Resultado da adicao
+	la a0, adicaoMensagem
 	j imprimeResultado
 
 subtracao:
 	sub s2,t1,t2			# Realiza a operacao de subtração
-	la a0, subtracaoMensagem	# Define a mensagem a ser impressa como Resultado da subtracao
+	la a0, subtracaoMensagem
 	j imprimeResultado
     
 multiplicacao:
 	mul s2,t1,t2			# Realiza a operacao de multiplicacao
-	la a0, multiplicacaoMensagem	# Define a mensagem a ser impressa como Resultado da multiplicacao
+	la a0, multiplicacaoMensagem
 	j imprimeResultado
    	
 divisao:
 	div s2,t1,t2			# Realiza a operacao de divisao
-	la a0, divisaoMensagem		# Define a mensagem a ser impressa como Resultado da divisao
+	la a0, divisaoMensagem
 	j imprimeResultado
 	
 imprimeResultado:
