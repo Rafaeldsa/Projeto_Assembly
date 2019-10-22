@@ -91,3 +91,4 @@ imprimeResultado:
 fechar:					# Finaliza o programa
 	li a7, 10
 	ecall
+#comentando mais um pouco. Erick_Brth
